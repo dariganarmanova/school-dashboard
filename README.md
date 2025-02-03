@@ -1,4 +1,4 @@
-# School Dashboard 
+# AcedIt! School Dashboard 
 
 This application helps students to manage their courses, tasks, and progress. 
 
@@ -10,6 +10,10 @@ This application helps students to manage their courses, tasks, and progress.
 - [To-Do](#to-do)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Progress
+
+
 
 ## To-Do
 
