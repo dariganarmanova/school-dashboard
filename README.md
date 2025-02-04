@@ -8,12 +8,12 @@ This application helps students to manage their courses, tasks, and progress.
 - [Features](#features)
 - [Progress](#progress)
 - [To-Do](#to-do)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Progress
 
-
+### ✅ Completed Features
+- 
 
 ## To-Do
 
