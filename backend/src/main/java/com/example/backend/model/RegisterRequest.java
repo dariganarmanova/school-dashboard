@@ -14,6 +14,6 @@ public class RegisterRequest {
     private String firstname;
     private String lastname;
     private String password;
-    private Integer grade;
+    private String grade;
     private String head_teacher;
 }
