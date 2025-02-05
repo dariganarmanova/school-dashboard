@@ -1,9 +1,10 @@
-import NavBar from '../component/NavBar';
+import './PageStyle.css'
 
 function HomePage() {
     return (
-        <h1>Welcome!</h1>
-
+        <div className='intro'>
+            <h1>Welcome to the AcedIt! School Dashboard.</h1>
+        </div>
     )
 }
 export default HomePage;

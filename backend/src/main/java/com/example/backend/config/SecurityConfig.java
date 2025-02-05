@@ -9,21 +9,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer{
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth 
+            .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
             .requestMatchers("/api/register", "/api/authenticate").permitAll()
-            .requestMatchers(HttpMethod.OPTIONS, "/task").permitAll()
             .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
@@ -34,6 +36,14 @@ public class SecurityConfig {
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+    @Override 
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+        .allowedOrigins("http://localhost:3001", "http://192.168.120.125:3001")
+        .allowedHeaders("*")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowCredentials(true);
     }
 
 }

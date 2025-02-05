@@ -1,0 +1,102 @@
+.navbar-container {
+  position: relative;
+  width: 100%;
+}
+
+.navbar {
+  position: absolute;
+  background-color: lightgrey;
+  width: 100%;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar li {
+  display: inline-block;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-size: larger;
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 400px;
+}
+
+.authenticate-form {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  padding: 20px;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+.authenticate-form input {
+  padding: 8px;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.authenticate-form button {
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid royalblue;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.authenticate-form h2 {
+  font-size: large;
+}
+
+.register-form input {
+  padding: 8px;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.register-form button {
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid royalblue;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.register-form h2 {
+  font-size: large;
+}
+
+.register-form select {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: white;
+}
+.register-form label {
+  font-size: small;
+}

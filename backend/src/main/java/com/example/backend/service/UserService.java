@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.model.Role;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +24,7 @@ public class UserService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
+        Role role = Role.valueOf(request.getRole().toUpperCase());
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstname(request.getFirstname());
@@ -29,6 +32,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setGrade(request.getGrade());
         user.setHead_teacher(request.getHead_teacher());
+        user.setRole(role);
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();

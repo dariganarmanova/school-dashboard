@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,8 @@ public class User implements UserDetails {
     private String password;
     private String grade;
     private String head_teacher;
+    @OneToMany(mappedBy = "user")
+    private List<Task> task;
     @Enumerated(EnumType.STRING)
     private Role role;
 
