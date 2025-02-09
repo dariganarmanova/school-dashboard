@@ -1,103 +1,128 @@
 import { useEffect, useState } from 'react';
-import './ComponentStyle.css'
+import './ComponentStyle.css';
 import axios from 'axios';
+
 function TaskComponent() {
     const [taskName, setTaskName] = useState("");
     const [completed, setCompleted] = useState(false);
     const [date, setDate] = useState("");
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [editingTask, setEditingTask] = useState(null);
+
     useEffect(() => {
         const fetchTask = async () => {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token");
             try {
-                const task = await axios.get("http://localhost:8080/api/taskGet", {
+                const response = await axios.get("http://localhost:8080/api/taskGet", {
                     headers: {
                         "Authorization": `Bearer ${token}`,
-                        "Content-Type": 'application/json'
-                    }
-                })
-                if (task.status === 200) {
-                    setData(Array.isArray(task.data) ? task.data : [task.data]);
+                        "Content-Type": "application/json",
+                    },
+                });
+                if (response.status === 200) {
+                    setData(Array.isArray(response.data) ? response.data : [response.data]);
                 }
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        }
+        };
         fetchTask();
-    }, [])
+    }, [data]);
+
     const handleName = (event) => {
         setTaskName(event.target.value);
-    }
+    };
+
     const handleCompleted = (event) => {
-        setCompleted(event.target.value === "true")
-    }
+        setCompleted(event.target.value === "true");
+    };
+
     const handleDate = (event) => {
-        setDate(event.target.value)
-    }
+        setDate(event.target.value);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
         try {
-            const data = {
+            const newTask = {
                 taskName,
                 completed,
-                deadline: date
-            }
-            const result = await axios.post("http://localhost:8080/api/taskCreate", data, {
+                deadline: date,
+            };
+            const result = await axios.post("http://localhost:8080/api/taskCreate", newTask, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    "Content-Type": 'application/json'
-                }
-            })
+                    "Content-Type": "application/json",
+                },
+            });
+            setData([...data, result.data]);
+            setTaskName("");
+            setCompleted(false);
+            setDate("");
         } catch (error) {
             console.error(error);
         }
-    }
-    const handleChange = async (e) => {
+    };
+
+    const handleEditClick = (task) => {
+        setEditingTask(task._id || task.id);
+        setTaskName(task.taskName || "");
+        setDate(task.deadline || "");
+        setCompleted(task.completed || false);
+    };
+
+    const handleUpdate = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem("token");
         try {
-            const result = await axios.put(`http://localhost:8080/api/taskUpdate/${taskId}`)
+            const updatedData = {
+                taskName,
+                deadline: date,
+                completed,
+                _id: editingTask,
+            };
+            const result = await axios.put(`http://localhost:8080/api/taskUpdate/${editingTask}`, updatedData, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            setData((prevData) => prevData.map((task) => task._id === editingTask ? result.data : task));
+            setEditingTask(null);
+            setTaskName("");
+            setCompleted(false);
+            setDate("");
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
+
     return (
         <div className="task-container">
-            <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="Task Name"
-                    type="text"
-                    value={taskName}
-                    onChange={handleName}
-
-                />
-                <label>Is your task completed or not?</label>
-                <select value={completed.toString()} onChange={handleCompleted}>
-                    <option value=""></option>
+            <form onSubmit={editingTask ? handleUpdate : handleSubmit}>
+                <input placeholder="Task Name" type="text" value={taskName} onChange={handleName} required />
+                <label>Is your task completed?</label>
+                <select value={completed.toString()} onChange={handleCompleted} required>
                     <option value="true">Completed</option>
                     <option value="false">Not Completed</option>
                 </select>
-                <input
-                    onChange={handleDate}
-                    type="date"
-                    placeholder="Deadline for the task"
-                    value={date}
-                />
-                <button type='submit'>Submit</button>
+                <input type="date" onChange={handleDate} value={date} required />
+                <button type="submit">{editingTask ? "Update Task" : "Create Task"}</button>
             </form>
-            {
-                data.length > 0 ? (
-                    data.map((it, index) => (
-                        <div key={index} className='data-task'>
-                            <p>{it.taskName}</p>
-                            <button onChange={handleChange}>Edit</button>
-                        </div>
-                    ))
-                ) : (
-                    <p>there is no data</p>
-                )
-            }
-        </div >
-    )
+
+            {data.length > 0 ? (
+                data.map((task) => (
+                    <div key={task._id || task.id} className="data-task">
+                        <p>{task.taskName}</p>
+                        <button onClick={() => handleEditClick(task)}>Edit</button>
+                    </div>
+                ))
+            ) : (
+                <p>No tasks available</p>
+            )}
+        </div>
+    );
 }
+
 export default TaskComponent;
