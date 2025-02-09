@@ -21,6 +21,7 @@ This application helps students to manage their courses, tasks, and progress.
 - 6th February: task set-up server side
 - 7th February: did nothing
 - 8th February: did nothing
+- 9th February: implemented task CRUD, client-side tasks form, get request, post request for client side,
 
 ## To-Do
 
