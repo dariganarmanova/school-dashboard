@@ -1,5 +1,6 @@
 import { useState } from "react"
 import './ComponentStyle.css'
+import axios from "axios"
 function Authenticate() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -11,8 +12,22 @@ function Authenticate() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = {
+            email,
+            password
+        }
         try {
-
+            const response = await axios.post('http://localhost:8080/api/authenticate', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (response.status === 200) {
+                const token = response.data.token;
+                localStorage.setItem("token", token);
+                console.log(token)
+                alert("authenticated")
+            }
         } catch (error) {
             console.log(error)
         }

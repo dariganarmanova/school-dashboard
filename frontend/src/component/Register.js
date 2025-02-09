@@ -39,12 +39,20 @@ function Register() {
             email,
             password,
             head_teacher: selectedTeacher,
-            grade: selectedGrade
+            grade: selectedGrade,
+            role: selectedRole
         }
         try {
-            const result = await axios.post("http://localhost:8080/api/login", data)
-            const response = await result.json();
-            localStorage.setItem(response.token);
+            const result = await axios.post("http://localhost:8080/api/register", data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (result.status === 200) {
+                const token = result.data.token;
+                localStorage.setItem("token", token);
+                alert("Successfully signed in")
+            }
         } catch (error) {
             console.log(error)
         }

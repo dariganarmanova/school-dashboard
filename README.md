@@ -17,7 +17,10 @@ This application helps students to manage their courses, tasks, and progress.
 
 - 3rd February: initialized repo on github, set up tasks, dependencies
 - 4th February: implemented authentication with spring security: includes jwtauthenticationfilter, service, app configuration, started frontend side, did not do the styling yet
-- 5th February: set up postgresql db, fixed role bug
+- 5th February: set up postgresql db, fixed role bug, authentication page and navbar frontend set up
+- 6th February: task set-up server side
+- 7th February: did nothing
+- 8th February: did nothing
 
 ## To-Do
 
@@ -38,7 +41,7 @@ This application helps students to manage their courses, tasks, and progress.
 
 4. **Task Management System**:
 
-- [ ] Implement task creation, deletion, edit.
+- [x] Implement task creation, deletion, edit.
 - [ ] Implement deadline for each task.
 - [ ] Implement filtering -> based on the date.
 
@@ -52,3 +55,7 @@ This application helps students to manage their courses, tasks, and progress.
 - [ ] Take the course information from /course endpoint or db, then have categories and input for the student to input the grade.
 - [ ] Chart should be based on the date. Each date is a bar with a grade and shows the progress over time.
 - [ ] Add encouraging words.
+
+7. **Dockerize backend**:
+
+- [ ] Dockerize Backend.

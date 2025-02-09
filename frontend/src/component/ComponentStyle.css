@@ -4,7 +4,10 @@
 }
 
 .navbar {
-  position: absolute;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
   background-color: lightgrey;
   width: 100%;
 }
@@ -99,4 +102,27 @@
 }
 .register-form label {
   font-size: small;
+}
+
+.task-container {
+  width: 400px;
+  padding: 20px;
+  margin: 50px auto;
+}
+.task-container form {
+  display: flex;
+  flex-direction: column;
+}
+.task-container input,
+select {
+  width: 50%;
+  margin: 10px 0;
+}
+
+.data-task {
+  display: flex;
+  flex-direction: column;
+}
+body {
+  margin-top: 60px;
 }

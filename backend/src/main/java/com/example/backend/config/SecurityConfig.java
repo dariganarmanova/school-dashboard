@@ -25,7 +25,7 @@ public class SecurityConfig implements WebMvcConfigurer{
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth 
             .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-            .requestMatchers("/api/register", "/api/authenticate").permitAll()
+            .requestMatchers("/api/register", "/api/authenticate", "/api/taskCreate", "/api/taskGet", "/api/taskUpdate/*", "/api/taskDelete/*").permitAll()
             .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
@@ -40,7 +40,7 @@ public class SecurityConfig implements WebMvcConfigurer{
     @Override 
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-        .allowedOrigins("http://localhost:3001", "http://192.168.120.125:3001")
+        .allowedOrigins("http://localhost:3000", "http://192.168.120.125:3000")
         .allowedHeaders("*")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowCredentials(true);
