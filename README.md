@@ -21,14 +21,15 @@ This application helps students to manage their courses, tasks, and progress.
 - 6th February: task set-up server side
 - 7th February: did nothing
 - 8th February: did nothing
-- 9th February: implemented task CRUD, client-side tasks form, get request, post request for client side,
+- 9th February: implemented task CRUD, client-side tasks form, get request, post request for client side.
+- 10th February:
 
 ## To-Do
 
 1. **Set up project repository**:
 
 - [x] Initialize project repo on Github.
-- [ ] Set up project structure.
+- [x] Set up project structure.
 
 2. **User Authentication**:
 
@@ -43,7 +44,7 @@ This application helps students to manage their courses, tasks, and progress.
 4. **Task Management System**:
 
 - [x] Implement task creation, deletion, edit.
-- [ ] Implement deadline for each task.
+- [x] Implement deadline for each task.
 - [ ] Implement filtering -> based on the date.
 
 5. **Course Page**:

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './ComponentStyle.css';
 import axios from 'axios';
+import FilteringButton from './FilteringButton';
 
 function TaskComponent() {
     const [taskName, setTaskName] = useState("");
@@ -8,7 +9,9 @@ function TaskComponent() {
     const [date, setDate] = useState("");
     const [data, setData] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
-
+    const [displayTask, setDisplayTask] = useState([])
+    const [sortOrder, setSortOrder] = useState("default");
+    const [deleteTask, setDeleteTask] = useState(null)
     useEffect(() => {
         const fetchTask = async () => {
             const token = localStorage.getItem("token");
@@ -21,13 +24,15 @@ function TaskComponent() {
                 });
                 if (response.status === 200) {
                     setData(Array.isArray(response.data) ? response.data : [response.data]);
+                    setDisplayTask(Array.isArray(response.data) ? response.data : [response.data])
                 }
+
             } catch (error) {
                 console.error(error);
             }
         };
         fetchTask();
-    }, [data]);
+    }, []);
 
     const handleName = (event) => {
         setTaskName(event.target.value);
@@ -72,6 +77,23 @@ function TaskComponent() {
         setCompleted(task.completed || false);
     };
 
+    const handleFilter = () => {
+        let sortedData = [...data]
+        if (sortOrder === "default") {
+            sortedData.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime())
+            setSortOrder("asc")
+        }
+        else if (sortOrder === "asc") {
+            sortedData.sort((a, b) => new Date(b.deadline).getTime() - new Date(a.deadline).getTime())
+            setSortOrder("desc")
+        }
+        else {
+            sortedData.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime())
+            setSortOrder("default")
+        }
+        setDisplayTask(sortedData)
+    }
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
@@ -97,7 +119,24 @@ function TaskComponent() {
             console.error(error);
         }
     };
+    const handleDeleteClick = (task) => {
+        setDeleteTask(task.id || task._id)
+        handleDelete()
+    }
+    const handleDelete = async () => {
+        //e.preventDefault();
+        const token = localStorage.getItem("token")
+        try {
 
+            const result = await axios.delete(`http://localhost:8080/api/taskDelete/${deleteTask}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <div className="task-container">
             <form onSubmit={editingTask ? handleUpdate : handleSubmit}>
@@ -110,18 +149,24 @@ function TaskComponent() {
                 <input type="date" onChange={handleDate} value={date} required />
                 <button type="submit">{editingTask ? "Update Task" : "Create Task"}</button>
             </form>
-
-            {data.length > 0 ? (
-                data.map((task) => (
-                    <div key={task._id || task.id} className="data-task">
+            <button onClick={handleFilter}>{
+                sortOrder === "default" ? "Sort Ascending" : sortOrder === "asc" ? "Sort descending" : "Reset sorting"
+            }</button>
+            {displayTask.length > 0 ? (
+                displayTask.map((task) => (
+                    <div key={task._id || task.id}>
                         <p>{task.taskName}</p>
+                        <p>{task.deadline}</p>
                         <button onClick={() => handleEditClick(task)}>Edit</button>
+                        <button onClick={() => handleDeleteClick(task)}>Delete</button>
                     </div>
                 ))
             ) : (
                 <p>No tasks available</p>
-            )}
-        </div>
+            )
+            }
+            {data.length === 0 && <p>No tasks available</p>}
+        </div >
     );
 }
 
