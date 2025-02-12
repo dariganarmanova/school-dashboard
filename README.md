@@ -22,7 +22,9 @@ This application helps students to manage their courses, tasks, and progress.
 - 7th February: did nothing
 - 8th February: did nothing
 - 9th February: implemented task CRUD, client-side tasks form, get request, post request for client side.
-- 10th February:
+- 10th February: implemented filtering
+- 11th February: fixed rendering bug
+- 12th February: styled, course component frontend set up
 
 ## To-Do
 
@@ -45,7 +47,7 @@ This application helps students to manage their courses, tasks, and progress.
 
 - [x] Implement task creation, deletion, edit.
 - [x] Implement deadline for each task.
-- [ ] Implement filtering -> based on the date.
+- [x] Implement filtering -> based on the date.
 
 5. **Course Page**:
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './ComponentStyle.css';
 import axios from 'axios';
-import FilteringButton from './FilteringButton';
 
 function TaskComponent() {
     const [taskName, setTaskName] = useState("");
@@ -11,7 +10,7 @@ function TaskComponent() {
     const [editingTask, setEditingTask] = useState(null);
     const [displayTask, setDisplayTask] = useState([])
     const [sortOrder, setSortOrder] = useState("default");
-    const [deleteTask, setDeleteTask] = useState(null)
+    const [force, setForce] = useState(0)
     useEffect(() => {
         const fetchTask = async () => {
             const token = localStorage.getItem("token");
@@ -32,7 +31,7 @@ function TaskComponent() {
             }
         };
         fetchTask();
-    }, []);
+    }, [force]);
 
     const handleName = (event) => {
         setTaskName(event.target.value);
@@ -61,10 +60,12 @@ function TaskComponent() {
                     "Content-Type": "application/json",
                 },
             });
+            setDisplayTask([...data, result.data])
             setData([...data, result.data]);
             setTaskName("");
             setCompleted(false);
             setDate("");
+            setForce(prev => prev + 1)
         } catch (error) {
             console.error(error);
         }
@@ -85,6 +86,7 @@ function TaskComponent() {
         }
         else if (sortOrder === "asc") {
             sortedData.sort((a, b) => new Date(b.deadline).getTime() - new Date(a.deadline).getTime())
+            //console.log(a.deadline)
             setSortOrder("desc")
         }
         else {
@@ -110,62 +112,72 @@ function TaskComponent() {
                     "Content-Type": "application/json",
                 },
             });
-            setData((prevData) => prevData.map((task) => task._id === editingTask ? result.data : task));
+            setData((prevData) => prevData.map((task) => task._id === editingTask ? result.data : task))
+            setDisplayTask((prevTasks) => prevTasks.map((task) => task._id === editingTask ? result.data : task))
             setEditingTask(null);
             setTaskName("");
             setCompleted(false);
             setDate("");
+            setForce(prev => prev + 1)
         } catch (error) {
             console.error(error);
         }
     };
-    const handleDeleteClick = (task) => {
-        setDeleteTask(task.id || task._id)
-        handleDelete()
-    }
-    const handleDelete = async () => {
+    const handleDelete = async (id) => {
         //e.preventDefault();
         const token = localStorage.getItem("token")
         try {
-
-            const result = await axios.delete(`http://localhost:8080/api/taskDelete/${deleteTask}`, {
+            await axios.delete(`http://localhost:8080/api/taskDelete/${id}`, {
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
                 }
             })
+            console.log("i am here")
+            setDisplayTask((prevData) => {
+                const newData = prevData.filter(task => task._id !== id)
+                console.log("i am here upd delete data")
+                return newData;
+            })
+            setData((prevTasks) => prevTasks.filter(task => task._id !== id))
+            setForce(prev => prev + 1)
         } catch (error) {
             console.error(error)
         }
     }
     return (
         <div className="task-container">
-            <form onSubmit={editingTask ? handleUpdate : handleSubmit}>
-                <input placeholder="Task Name" type="text" value={taskName} onChange={handleName} required />
+            <form className='task-form' onSubmit={editingTask ? handleUpdate : handleSubmit}>
+                <input placeholder="To Do" type="text" value={taskName} onChange={handleName} required />
                 <label>Is your task completed?</label>
                 <select value={completed.toString()} onChange={handleCompleted} required>
                     <option value="true">Completed</option>
                     <option value="false">Not Completed</option>
                 </select>
                 <input type="date" onChange={handleDate} value={date} required />
-                <button type="submit">{editingTask ? "Update Task" : "Create Task"}</button>
+                <button className="button-Submit" type="submit">{editingTask ? "Update Task" : "Create Task"}</button>
             </form>
-            <button onClick={handleFilter}>{
+            <button className="filter" onClick={handleFilter}>{
                 sortOrder === "default" ? "Sort Ascending" : sortOrder === "asc" ? "Sort descending" : "Reset sorting"
             }</button>
             {displayTask.length > 0 ? (
                 displayTask.map((task) => (
-                    <div key={task._id || task.id}>
-                        <p>{task.taskName}</p>
-                        <p>{task.deadline}</p>
+                    <div key={task._id || task.id} className='data-task'>
+                        <p>To-do: {task.taskName}</p>
+                        <p>Deadline: {task.deadline}</p>
+                        {task.completed === 'Completed' ? (
+                            <p className='completed'>Task is completed</p>
+                        ) : (
+                            <p className='not-completed'>Task is not completed</p>
+                        )}
                         <button onClick={() => handleEditClick(task)}>Edit</button>
-                        <button onClick={() => handleDeleteClick(task)}>Delete</button>
+                        <button onClick={() => handleDelete(task.id)}>Delete</button>
                     </div>
                 ))
             ) : (
                 <p>No tasks available</p>
             )
             }
-            {data.length === 0 && <p>No tasks available</p>}
         </div >
     );
 }

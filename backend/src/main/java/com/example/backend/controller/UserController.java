@@ -1,6 +1,12 @@
 package com.example.backend.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +29,11 @@ public class UserController {
     @PostMapping("/api/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(userService.authenticate(request));
+    }
+    @GetMapping("/api/getRole")
+    public List<String> getDetails() {
+        UserDetails userDetails = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<String> role = userDetails.getAuthorities().stream().map(rolew -> rolew.getAuthority()).collect(Collectors.toList());
+        return role;
     }
 }

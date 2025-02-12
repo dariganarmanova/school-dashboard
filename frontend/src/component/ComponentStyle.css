@@ -10,6 +10,7 @@
   width: 100%;
   background-color: lightgrey;
   width: 100%;
+  z-index: 1000;
 }
 
 .navbar ul {
@@ -105,7 +106,7 @@
 }
 
 .task-container {
-  width: 400px;
+  width: 500px;
   padding: 20px;
   margin: 50px auto;
 }
@@ -113,6 +114,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .task-container input,
 select {
   width: 50%;
@@ -125,4 +127,79 @@ select {
 }
 body {
   margin-top: 60px;
+  overflow-x: hidden;
+}
+
+.task-container input {
+  padding: 20px;
+  border: 1px solid thistle;
+  border-radius: 3px;
+  font-size: medium;
+}
+.button-Submit {
+  padding: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: azure;
+  width: 30%;
+  border: 1px solid beige;
+  border-radius: 5px;
+  font-size: medium;
+}
+
+.filter {
+  margin-top: 10px;
+  font-size: medium;
+  padding: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: azure;
+  width: 30%;
+  border: 1px solid beige;
+  border-radius: 5px;
+}
+
+.task-form select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid thistle;
+}
+.task-form label {
+  font-size: medium;
+  background-color: aliceblue;
+  width: 38%;
+}
+.data-task {
+  font-size: medium;
+  background-color: azure;
+  margin-top: 30px;
+  border: 1px solid paleturquoise;
+  border-radius: 4px;
+  position: relative;
+  max-width: 90%;
+  height: auto;
+  overflow: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  padding: 10px;
+}
+
+.data-task button {
+  width: 30%;
+  border: 1px solid palegoldenrod;
+  background-color: aliceblue;
+  position: relative;
+  bottom: 60px;
+  left: 300px;
+  margin-bottom: 10px;
+  border: 1px solid slategray;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.data-task p {
+  position: relative;
+  top: 20px;
+  left: 50px;
+  font-size: large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

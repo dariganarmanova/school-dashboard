@@ -3,6 +3,7 @@ import HomePage from './page/HomePage'
 import NavBar from "./component/NavBar";
 import AuthPage from "./page/AuthPage";
 import TaskComponent from "./component/TaskComponent";
+import CourseComponent from "./component/CourseComponent"
 function App() {
   return (
     <Router>
@@ -11,6 +12,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/authenticate" element={<AuthPage />} />
         <Route path="/tasks" element={<TaskComponent />} />
+        <Route path="/courses" element={<CourseComponent />} />
       </Routes>
     </Router>
   );
