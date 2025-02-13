@@ -1,5 +1,7 @@
 package com.example.backend.controller;
 
+import java.util.List;
+
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class CourseController {
     private final CourseService courseService;
     @GetMapping("/api/courses")
-    public ResponseEntity<CourseResponse> getCourses(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<List<CourseResponse>> getCourses(@AuthenticationPrincipal UserDetails userDetails) {
+
         return ResponseEntity.ok(courseService.getCourse(userDetails));
     }
     @PostMapping("/api/coursesCreate")

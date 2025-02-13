@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -24,13 +26,15 @@ public class CourseService {
         courses.setGrade(request.getGrade());
         courses.setLesson(request.getLesson());
         courses.setTeacher(request.getTeacher());
+        courses.setTime(request.getTime());
         courseRepository.save(courses);
         CourseResponse response = new CourseResponse();
         response.setLesson(courses.getLesson());
         response.setTeacher(courses.getTeacher());
+        response.setTime(courses.getTime());
         return response;
     }
-    public CourseResponse getCourse(UserDetails userDetails) {
+    public List<CourseResponse> getCourse(UserDetails userDetails) {
         String email = userDetails.getUsername();
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("user is not found"));
@@ -39,11 +43,16 @@ public class CourseService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User grade is null");
         }
         System.out.println(grade);
-        Courses course = courseRepository.findByGrade(grade)
-            .orElseThrow(() -> new RuntimeException("cannot be found"));
-        CourseResponse response = new CourseResponse();
-        response.setLesson(course.getLesson());
-        response.setTeacher(course.getTeacher());
-        return response;
+        List<Courses> course = courseRepository.findByGrade(grade);
+        if (course.isEmpty()) {
+            throw new RuntimeException("cannot be found");
+        }
+        return course.stream().map(cs -> {
+            CourseResponse response = new CourseResponse();
+            response.setLesson(cs.getLesson());
+            response.setTeacher(cs.getTeacher());
+            response.setTime(cs.getTime());
+            return response;
+        }).toList();
     }
 }

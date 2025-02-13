@@ -25,4 +25,5 @@ public class Courses {
     private String teacher;
     private String lesson;
     private String grade;
+    private String time;
 }

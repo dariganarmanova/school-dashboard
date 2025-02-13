@@ -7,6 +7,7 @@ function CourseComponent() {
     const [lesson, setLesson] = useState("");
     const [teacher, setTeacher] = useState("")
     const [grade, setGrade] = useState("")
+    const [time, setTime] = useState("")
 
     const handleLesson = (event) => {
         setLesson(event.target.value)
@@ -16,6 +17,9 @@ function CourseComponent() {
     }
     const handleGrade = (event) => {
         setGrade(event.target.value)
+    }
+    const handleTime = (event) => {
+        setTime(event.target.value)
     }
     useEffect(() => {
         const token = localStorage.getItem("token")
@@ -71,6 +75,7 @@ function CourseComponent() {
             })
             if (result.status === 200) {
                 setData([...data, result.data])
+                alert("Course successfuly created")
             }
 
         } catch (error) {
@@ -79,21 +84,9 @@ function CourseComponent() {
 
     }
     return (
-        <div>
-            {
-                data.length > 0 ? (
-                    data.map((dt) => (
-                        <div key={dt._id || dt.id} className="data-container">
-                            <p>{dt.lesson}</p>
-                            <p>{dt.teacher}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No course available for you</p>
-                )
-            }
-            {JSON.stringify(role) === JSON.stringify(['ROLE_TEACHER']) ? (
-                <form onChange={handleSubmit}>
+        <div className="course-section">
+            {JSON.stringify(role) === JSON.stringify(['ROLE_TEACHER']) && (
+                <form onSubmit={handleSubmit} className="course-form">
                     <input
                         value={lesson}
                         onChange={handleLesson}
@@ -113,13 +106,34 @@ function CourseComponent() {
                         placeholder="grade"
                         type="text"
                     />
+                    <input
+                        value={time}
+                        onChange={handleTime}
+                        placeholder="time"
+                        type="text"
+                    />
                     <button type="submit">Submit</button>
                 </form>
-            ) : (
-                <p>Students not allowed to create courses</p>
             )}
+
+            <div className="course-wrapper">
+                {data.length > 0 ? (
+                    data.map((dt) => (
+                        <div key={dt._id || dt.id} className="course-container">
+                            <div className="course-data">
+                                <p>Subject name: {dt.lesson}</p>
+                                <p>Teacher name: {dt.teacher}</p>
+                                <p>Time: {dt.time}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No courses available</p>
+                )}
+            </div>
         </div>
-    )
+    );
+
 }
 
 export default CourseComponent

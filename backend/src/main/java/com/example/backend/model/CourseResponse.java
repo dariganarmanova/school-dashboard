@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class CourseResponse {
     private String lesson; 
     private String teacher;
+    private String time;
+
 }

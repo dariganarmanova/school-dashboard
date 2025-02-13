@@ -11,4 +11,5 @@ public class CourseRequest {
     private String lesson;
     private String teacher;
     private String grade;
+    private String time;
 }
