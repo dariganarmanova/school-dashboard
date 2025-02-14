@@ -136,4 +136,4 @@ function CourseComponent() {
 
 }
 
-export default CourseComponent
+export default CourseComponent;

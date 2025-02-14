@@ -25,7 +25,7 @@ public class SecurityConfig implements WebMvcConfigurer{
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth 
             .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-            .requestMatchers("/api/register", "/api/authenticate", "/api/taskCreate", "/api/taskGet", "/api/taskUpdate/*", "/api/taskDelete/*", "/api/coursesCreate","/api/courses", "/api/getRole", "/api/coursesCreate").permitAll()
+            .requestMatchers("/api/register", "/api/authenticate", "/api/taskCreate", "/api/taskGet", "/api/taskUpdate/*", "/api/taskDelete/*", "/api/coursesCreate","/api/courses", "/api/getRole", "/api/coursesCreate","/api/grades", "/api/createGrades").permitAll()
             .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
