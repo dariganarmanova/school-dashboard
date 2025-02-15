@@ -13,6 +13,9 @@ function NavBar() {
                         <Link to="/authenticate">Authenticate</Link>
                     </li>
                     <li>
+                        <Link to="/registrate">Registrate</Link>
+                    </li>
+                    <li>
                         <Link to="/tasks">Tasks</Link>
                     </li>
                     <li>
