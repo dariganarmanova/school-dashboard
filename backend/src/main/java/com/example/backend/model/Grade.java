@@ -20,13 +20,11 @@ public class Grade {
     private String grade_given;
     private String lesson_name;
 
-    // Student receiving the grade
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Teacher assigning the grade
     @ManyToOne
-    @JoinColumn(name = "teacher_id")  // This replaces teacher_email
+    @JoinColumn(name = "teacher_id")  
     private User teacher;
 }

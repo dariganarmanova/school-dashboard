@@ -32,7 +32,6 @@ public class GradeService {
         if (grades.isEmpty()) {
             throw new RuntimeException("No grades found for this teacher.");
         }
-    
         return grades;
     }
     

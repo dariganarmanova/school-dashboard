@@ -13,6 +13,7 @@ function ProgressComponent() {
     const [date, setDate] = useState("");
     const chartRef = useRef(null);
     const [forced, setForced] = useState(0);
+    const [gradeData, setGradeData] = useState([])
     const handleLesson = (event) => {
         setLesson(event.target.value)
     }
@@ -55,8 +56,11 @@ function ProgressComponent() {
                 })
                 if (result.status === 200) {
                     const newData = Array.isArray(result.data) ? result.data : [result.data];
+                    const newGrade = Array.isArray(result.data["grade_given"]) ? result.data["grade_given"] : [result.data["grade_given"]]
                     if (newData.length > 0) {
                         setData(newData);
+                        setGradeData(newGrade)
+                        console.log(gradeData)
                         console.log(data)
                     } else {
                         console.log("No data received from the API");
@@ -89,6 +93,10 @@ function ProgressComponent() {
                 setForced(prev => prev + 1);
                 alert("Grade has been successfuly created")
                 setData([...data, result.data])
+                setGrade("")
+                setDate("")
+                setEmail("")
+                setLesson("")
             }
         } catch (error) {
             console.log(error)
@@ -110,8 +118,8 @@ function ProgressComponent() {
 
         const xScale = d3.scaleBand()
             .domain(parsedData.map(d => d.date.toLocaleDateString()))
-            .range([0, width])
-            .padding(0.2);
+            .range([0, width + 30])
+            .padding(0.1);
 
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(parsedData, d => d.grade)])

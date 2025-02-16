@@ -11,6 +11,10 @@ This application helps students to manage their courses, tasks, and progress.
 - [To-Do](#to-do)
 - [License](#license)
 
+## Usage
+
+### Backend Spring Boot Locally running
+
 ## Progress
 
 ### ✅ Completed Features
@@ -25,6 +29,9 @@ This application helps students to manage their courses, tasks, and progress.
 - 10th February: implemented filtering
 - 11th February: fixed rendering bug
 - 12th February: styled, course component frontend set up
+- 13th February: did nothing
+- 14th February: grades backend set up, d3
+- 15th February: d3 style, progress component style, final touch ups
 
 ## To-Do
 
@@ -41,7 +48,7 @@ This application helps students to manage their courses, tasks, and progress.
 
 3. **Home Screen**:
 
-- [ ] Set up Frontend Home Screen. Navigation bar should include Log In or Sign Up, Course view, Task view, Progress view, User information.
+- [x] Set up Frontend Home Screen. Navigation bar should include Log In or Sign Up, Course view, Task view, Progress view, User information.
 
 4. **Task Management System**:
 
@@ -51,15 +58,18 @@ This application helps students to manage their courses, tasks, and progress.
 
 5. **Course Page**:
 
-- [ ] View all the courses assigned by the admin (head teacher or administrator).
+- [x] View all the courses assigned by the admin (head teacher or administrator).
 
 6. **Progress Tracking**:
 
-- [ ] Implement D3.js chart for progress tracking. It should include the student's grades.
-- [ ] Take the course information from /course endpoint or db, then have categories and input for the student to input the grade.
-- [ ] Chart should be based on the date. Each date is a bar with a grade and shows the progress over time.
-- [ ] Add encouraging words.
+- [x] Implement D3.js chart for progress tracking. It should include the student's grades.
+- [x] Take the course information from /course endpoint or db, then have categories and input for the student to input the grade.
+- [x] Chart should be based on the date. Each date is a bar with a grade and shows the progress over time.
 
 7. **Dockerize backend**:
 
 - [ ] Dockerize Backend.
+
+8. **Deploy**:
+
+- [ ] Deploy to AWS for backend and Netlify for frontend
