@@ -22,25 +22,6 @@ function CourseComponent() {
         setTime(event.target.value)
     }
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        const fetchCourses = async () => {
-            try {
-                const result = await axios.get("http://localhost:8080/api/courses", {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        "Content-Type": 'application/json'
-                    }
-                })
-                if (result.status === 200) {
-                    setData(Array.isArray(result.data) ? result.data : [result.data])
-                }
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchCourses()
-    }, [])
-    useEffect(() => {
         const getUserRole = async () => {
             try {
                 const token = localStorage.getItem("token")
@@ -58,6 +39,29 @@ function CourseComponent() {
         }
         getUserRole();
     }, [])
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        const fetchCourses = async () => {
+            try {
+                const result = await axios.get("http://localhost:8080/api/courses", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        "Content-Type": 'application/json'
+                    }
+                })
+                if (result.status === 200) {
+                    setData(Array.isArray(result.data) ? result.data : [result.data])
+                    console.log(data)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        if (role && role.length > 0) {
+            fetchCourses();
+        }
+    }, [role])
+
     console.log(role)
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,7 +70,8 @@ function CourseComponent() {
             const data = {
                 lesson,
                 teacher,
-                grade
+                grade,
+                time
             }
             const result = await axios.post("http://localhost:8080/api/coursesCreate", data, {
                 headers: {
@@ -74,7 +79,8 @@ function CourseComponent() {
                 }
             })
             if (result.status === 200) {
-                setData([...data, result.data])
+                setData(setData(prevData => [...prevData, result.data]))
+                console.log(data)
                 alert("Course successfuly created")
             }
 
@@ -85,7 +91,7 @@ function CourseComponent() {
     }
     return (
         <div className="course-section">
-            {JSON.stringify(role) === JSON.stringify(['ROLE_TEACHER']) && (
+            {role && role.includes('ROLE_TEACHER') && (
                 <form onSubmit={handleSubmit} className="course-form">
                     <input
                         value={lesson}

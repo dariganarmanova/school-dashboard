@@ -10,4 +10,6 @@ public interface GradeRepository extends JpaRepository<Grade,Long>{
     List<Grade> findByUserId(Integer user_id);
     List<Grade> findByTeacherId(Integer teacherId);
     List<Grade> findByTeacher(User teacher);
+    List<Grade> findByUser_Email(String email);
+
 }

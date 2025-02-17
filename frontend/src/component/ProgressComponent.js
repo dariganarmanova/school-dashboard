@@ -197,7 +197,7 @@ function ProgressComponent() {
                             <div key={dt._id || dt.id}>
                                 <p>Grade: {dt.grade_given}</p>
                                 <p>Lesson: {dt.lesson_name}</p>
-                                <p>Date: {dt.date}</p>
+                                <p>Date: {format(new Date(dt.date), "yyyy-MM-dd")}</p>
                             </div>
                         ))}
                     </div>

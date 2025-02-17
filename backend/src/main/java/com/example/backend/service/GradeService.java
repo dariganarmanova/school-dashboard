@@ -23,37 +23,34 @@ public class GradeService {
     private final GradeRepository gradeRepository;
     private final JwtService jwtService;
     private final UserRepository userRepository;
+
     public List<Grade> getGradesForUser(User user) {
         if (user == null) {
             throw new RuntimeException("User not found.");
         }
-        List<Grade> grades = gradeRepository.findByTeacher(user);
-    
-        if (grades.isEmpty()) {
-            throw new RuntimeException("No grades found for this teacher.");
+        List<Grade> grade = gradeRepository.findByTeacher(user);
+        if (grade == null || grade.isEmpty()) {
+            List<Grade> grades = gradeRepository.findByUser_Email(user.getEmail());
+            return grades;
         }
-        return grades;
+        return grade;
     }
-    
-    
-    public Grade createGrade(GradeRequest request, String token) {
-        String newT = token.substring(7);
-        String teacherN = jwtService.extractUsername(newT);
-    
-        User teacher = userRepository.findByEmail(teacherN)
-            .orElseThrow(() -> new RuntimeException("Teacher not found"));
-    
+
+    public Grade createGrade(GradeRequest request, User teacher) {
+        if (!teacher.getRole().equals("ROLE_TEACHER")) {
+            throw new RuntimeException("Only teachers can create grades.");
+        }
+
         User student = userRepository.findByEmail(request.getStudent_email())
             .orElseThrow(() -> new RuntimeException("Student not found"));
-    
+
         Grade grade = new Grade();
-        grade.setTeacher(teacher); 
+        grade.setTeacher(teacher);  
         grade.setDate(request.getDate());
         grade.setGrade_given(request.getGrade_given());
         grade.setLesson_name(request.getLesson_name());
-        grade.setUser(student);
-    
+        grade.setUser(student);  
+
         return gradeRepository.save(grade);
     }
-    
 }

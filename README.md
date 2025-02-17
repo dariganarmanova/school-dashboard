@@ -15,6 +15,37 @@ This application helps students to manage their courses, tasks, and progress.
 
 ### Backend Spring Boot Locally running
 
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/dariganarmanova/school-dashboard.git
+   cd school-dashboard/backend
+   ```
+2. **Run the Maven command:**
+
+   ```bash
+   ./mvnw clean package
+   ```
+
+3. **Run the Backend:**
+
+   ```bash
+   java -jar target/project-0.0.1-SNAPSHOT.jar
+   ```
+
+### Frontend React Locally running
+
+1. **Install Frontend Dependencies:**
+
+   ```
+   npm install
+   ```
+
+2. **Start:**
+
+   ```
+   npm start
+   ```
+
 ## Progress
 
 ### ✅ Completed Features
@@ -32,6 +63,8 @@ This application helps students to manage their courses, tasks, and progress.
 - 13th February: did nothing
 - 14th February: grades backend set up, d3
 - 15th February: d3 style, progress component style, final touch ups
+- 16th February: did nothing
+- 17th February: wrap up the project
 
 ## To-Do
 
@@ -66,10 +99,6 @@ This application helps students to manage their courses, tasks, and progress.
 - [x] Take the course information from /course endpoint or db, then have categories and input for the student to input the grade.
 - [x] Chart should be based on the date. Each date is a bar with a grade and shows the progress over time.
 
-7. **Dockerize backend**:
+7. **Package as a JAR backend**:
 
-- [ ] Dockerize Backend.
-
-8. **Deploy**:
-
-- [ ] Deploy to AWS for backend and Netlify for frontend
+- [x] Final.

@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GradeController {
     private final GradeService gradeService;
+
+    // Get grades for the logged-in user (teacher or student)
     @GetMapping("/api/grades")
-    public ResponseEntity<List<Grade>> getAllGrades(@AuthenticationPrincipal User teacher) {
-        return ResponseEntity.ok(gradeService.getGradesForUser(teacher));
+    public ResponseEntity<List<Grade>> getAllGrades(@AuthenticationPrincipal User user) {
+        try {
+            return ResponseEntity.ok(gradeService.getGradesForUser(user));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // Return a forbidden response if an error occurs
+        }
     }
+
     @PostMapping("/api/createGrades")
-    public ResponseEntity<Grade> createGrade(@RequestBody GradeRequest request, @RequestHeader("Authorization") String token) {
-        return ResponseEntity.ok(gradeService.createGrade(request,token));
+    public ResponseEntity<Grade> createGrade(@RequestBody GradeRequest request, @AuthenticationPrincipal User user) {
+        try {
+            return ResponseEntity.ok(gradeService.createGrade(request, user));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // Handle creation errors
+        }
     }
 }
