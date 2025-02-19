@@ -48,6 +48,30 @@ This application helps students to manage their courses, tasks, and progress.
 
 ## Features
 
+### Home Page
+<img width="1445" alt="Screenshot 2025-02-17 at 11 26 53 PM" src="https://github.com/user-attachments/assets/f9a41527-f78a-4cd9-ac39-1892217a7d55" />
+
+### Log In and Registration
+<img width="1452" alt="Screenshot 2025-02-17 at 11 27 00 PM" src="https://github.com/user-attachments/assets/c7179719-01ca-4452-b998-8d5d94f228c6" />
+
+### Task Page 
+<img width="1461" alt="Screenshot 2025-02-17 at 11 27 42 PM" src="https://github.com/user-attachments/assets/b0701c0e-aeeb-40bd-9bce-b382609f74f3" />
+<img width="1448" alt="Screenshot 2025-02-17 at 11 27 52 PM" src="https://github.com/user-attachments/assets/f60ef48b-28a1-4462-aef7-0711ad3d2c65" />
+<img width="1457" alt="Screenshot 2025-02-17 at 11 27 59 PM" src="https://github.com/user-attachments/assets/866d316d-5b86-424c-9009-aa42cf1f244f" />
+
+### Courses Page Admin Side 
+<img width="1452" alt="Screenshot 2025-02-17 at 11 29 07 PM" src="https://github.com/user-attachments/assets/62177291-39a3-4c2b-b0e9-4e1f12d85373" />
+<img width="1446" alt="Screenshot 2025-02-18 at 12 08 29 AM" src="https://github.com/user-attachments/assets/1de79700-e2c3-4f45-aa11-0f801bdefebc" />
+
+### Courses Page Student SIde 
+<img width="1447" alt="Screenshot 2025-02-17 at 11 51 09 PM" src="https://github.com/user-attachments/assets/501a84da-7ead-46e5-aa16-8b18eee2a79f" />
+
+### Progress Page Admin Side 
+<img width="1459" alt="Screenshot 2025-02-17 at 11 29 45 PM" src="https://github.com/user-attachments/assets/e86b202d-104e-4272-9c03-988f0a93a8c6" />
+
+### Progress Page Student Side 
+<img width="1457" alt="Screenshot 2025-02-18 at 12 23 25 AM" src="https://github.com/user-attachments/assets/edce64af-6373-4e4a-8b9a-2fc7a4597d81" />
+
 ## Progress
 
 ### ✅ Completed Features
