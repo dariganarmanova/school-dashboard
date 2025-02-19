@@ -1,13 +1,9 @@
 package com.example.backend.service;
 
 import java.util.List;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.config.JwtService;
-import com.example.backend.model.Courses;
 import com.example.backend.model.Grade;
 import com.example.backend.model.GradeRequest;
 import com.example.backend.model.User;

@@ -23,13 +23,12 @@ import lombok.RequiredArgsConstructor;
 public class GradeController {
     private final GradeService gradeService;
 
-    // Get grades for the logged-in user (teacher or student)
     @GetMapping("/api/grades")
     public ResponseEntity<List<Grade>> getAllGrades(@AuthenticationPrincipal User user) {
         try {
             return ResponseEntity.ok(gradeService.getGradesForUser(user));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // Return a forbidden response if an error occurs
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
     }
 
@@ -38,7 +37,7 @@ public class GradeController {
         try {
             return ResponseEntity.ok(gradeService.createGrade(request, user));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // Handle creation errors
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
     }
 }

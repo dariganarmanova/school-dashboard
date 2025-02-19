@@ -46,6 +46,8 @@ This application helps students to manage their courses, tasks, and progress.
    npm start
    ```
 
+## Features
+
 ## Progress
 
 ### ✅ Completed Features
